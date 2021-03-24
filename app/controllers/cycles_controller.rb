@@ -59,7 +59,7 @@ class CyclesController < ApplicationController
         ]
       }
     
-    @cycle.components << subcomponent
+    @cycle.components[@cycle.components.length] = subcomponent
     respond_to do |format|
       if @cycle.save!
         categories_sum(params[:cycle][:climate_change].to_i, params[:cycle][:water_use].to_i)
@@ -142,6 +142,6 @@ class CyclesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def cycle_params
-      params.require(:cycle).permit(:name, :components, :component_name, :subcomponent_name, :climate_change, :water_use)
+      params.require(:cycle).permit(:name, :components, :component_name, :subcomponent_name, :climate_change, :water_use, :impacts)
     end
 end

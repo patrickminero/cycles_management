@@ -1,0 +1,52 @@
+<div class="h-screen w-6/12 mx-auto flex pt-28 justify-center">
+  <div class="w-full h-auto flex justify-between">
+    <div class="w-6/12">
+      <h1 class="text-2xl mb-4">Component name</h1>
+      <%= form_with(cycle: @cycle, local: true, method: 'post', url: add_subcomponents_path) do |form| %>
+        <div class="field">
+          <%= form.text_field 'cycle[component_name]', class: "p-16 bg-white focus:outline-none focus:shadow-outline border border-gray-500 rounded-md py-2 px-2 block appearance-none leading-normal w-full", autofocus: true, value: params[:name] %>
+        </div>
+        <h1 class="text-lg mb-4">Subcomponent name</h1>
+        <div class="field">
+          <%= form.text_field 'cycle[subcomponent_name]', class: "p-16 bg-white focus:outline-none focus:shadow-outline border border-gray-500 rounded-md py-2 px-2 block appearance-none leading-normal w-full", autofocus: true, placeholder: 'Subcomponent name' %>
+        </div>
+
+        <div class="field">
+          <%= form.label 'cycle[:subcomponents]', "Impacts", class: 'text-3xl mb-4' %>
+          <%= form.number_field 'cycle[climate_change]', class: "p-16 bg-white focus:outline-none focus:shadow-outline border border-gray-500 rounded-md py-2 px-2 block appearance-none leading-normal w-full mb-2", autofocus: true, placeholder: 'Climate change' %>
+          <%= form.number_field 'cycle[water_use]', class: "p-16 bg-white focus:outline-none focus:shadow-outline border border-gray-500 rounded-md py-2 px-2 block appearance-none leading-normal w-full mb-2", autofocus: true, placeholder: 'Water use' %>
+        </div>
+
+        <div class="actions">
+          <%= form.submit 'Add subcomponents', class: 'rounded bg-indigo-900 hover:bg-blue-700 py-2 px-4 text-white' %>
+        </div>
+      <% end %>
+    </div>
+    
+    <div>
+      <div class="border border-indigo-900 rounded py-2 p-3">
+          <p class="text-xl mb-2">Carbon footprint</p>
+          <p class="text-lg mb-1"><i class="fas fa-sun"></i> Climate change: <%= @cycle.climate_change %></p>
+          <p class="text-lg mb-1"><i class="fas fa-water"></i> Water use: <%= @cycle.water_use %></p>
+        </div>
+      <p class="font-sans text-xl font-semibold">Components: </p>
+      <% @cycle.components.each do |comp| %>
+          <% if comp.keys[1] == 'impacts' %>
+            <p class="ml-3 font-sans text-lg font-semibold">Name: <%= comp["name"] %></p>
+            <p class="ml-3 font-sans text-lg font-semibold">Impacts: </p>
+            <p class="ml-5 font-sans text-lg font-normal">Climate change: <%= comp["impacts"]["climate_change"] %></p>
+            <p class="ml-5 font-sans text-lg font-normal">Water use: <%= comp["impacts"]["water_use"] %></p>
+          <% elsif comp.keys[1] == 'components' %>
+            <%# <p class="ml-3 font-sans text-lg font-semibold">Subcomponents: </p> %>
+            <p class="ml-3 font-sans text-lg font-semibold">Name: <%= comp["name"] %></p>
+            <% comp["components"].each do |sub| %>
+              <p class="ml-5 font-sans text-lg font-semibold">Name: <%= sub["name"] %></p>
+              <p class="ml-5 font-sans text-lg font-semibold">Impacts: </p>
+              <p class="ml-7 font-sans text-lg font-normal">Climate change: <%= sub["impacts"]["climate_change"] %></p>
+              <p class="ml-7  font-sans text-lg font-normal">Water use: <%= sub["impacts"]["water_use"] %></p>
+            <% end %>
+          <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
