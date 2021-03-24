@@ -1,0 +1,22 @@
+<div class="h-screen w-full mx-auto flex pt-28 justify-center">
+  
+  <% if @cycles.empty? %>
+    <div class="w-6/12 text-center m-auto z-20">
+      <h1 class="text-indigo text-7xl font-sans mb-5"> Create your first cycle</h1>
+      <%= link_to "Start", new_cycle_path, class: 'leading-none h-full rounded bg-indigo-900 hover:bg-blue-700 py-1.5 px-4 text-white text-base visited:text-white' %>
+    </div>
+  <% else %>
+    <div class="w-6/12 h-auto flex justify-center">
+      <% @cycles.each do |cycle| %>
+          <li class="flex justify-between mb-1 w-full h-12 leading-none p-2 border-2 rounded border-gray-400">
+            <%= link_to cycle.name, cycle_path(cycle), class: 'text-indigo text-xl font-sans hover:bg-transparent hover:text-blue-700 visited:text-white' %>
+            <p class="text-indigo text-base leading-1.5 font-sans">Climate change: <%= cycle.climate_change %> | Water use: <%= cycle.water_use %></p>
+            <div class="w-1/4 flex justify-around">
+              <%= link_to 'Edit', edit_cycle_path(cycle), class: 'leading-none h-full rounded bg-indigo-900 hover:bg-blue-700 py-1.5 px-4 text-white text-base visited:text-white' %>
+              <%= link_to 'Destroy', cycle, method: :delete, data: { confirm: 'Are you sure?' }, class: 'leading-none h-full rounded bg-red-800 hover:bg-red-500 py-1.5 px-4 text-white text-base visited:text-white' %>
+            </div>
+          </li>
+      <% end %>
+    </div>
+  <% end %>
+</div>
