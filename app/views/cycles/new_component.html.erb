@@ -15,7 +15,7 @@
           </div>
         <% end %>
         
-        
+        <h1 class="text-3xl mb-4"><%= @cycle.name %></h1>
         <h1 class="text-3xl mb-4">Components</h1>
         <div class="field">
           <%= form.text_field 'cycle[component_name]', class: "p-16 bg-white focus:outline-none focus:shadow-outline border border-gray-500 rounded-md py-2 px-2 block appearance-none leading-normal w-full", autofocus: true, placeholder: 'Component name' %>

@@ -75,6 +75,28 @@ class CyclesController < ApplicationController
     @cycle.categories_sum(climate_change, water_use)
   end
 
+  def delete_component
+    @cycle = Cycle.find(params[:id])
+    @cycle.components.delete_at(params[:format].to_i)
+    
+    if @cycle.save!
+      redirect_to edit_cycle_path(@cycle)
+    else
+      render :edit
+    end
+  end
+
+  def delete_subcomponent
+    @cycle = Cycle.find(params[:id])
+    @cycle.components[params[:index].to_i]["components"].delete_at(params[:ind].to_i)
+    pp @cycle
+    if @cycle.save!
+      redirect_to edit_cycle_path(@cycle)
+    else
+      render :edit
+    end
+  end
+
   # POST /cycles or /cycles.json
   def create
     @cycle = Cycle.new(cycle_params)
