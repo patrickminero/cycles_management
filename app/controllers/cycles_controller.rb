@@ -18,10 +18,10 @@ class CyclesController < ApplicationController
   # GET /cycles/1/edit
   def edit
   end
-
+  # GET /cycles/1/new_component
   def new_component
   end
-
+  # post /cycles/1/edit
   def add_components
     @cycle = Cycle.find(params[:id])
     component = {
@@ -41,11 +41,11 @@ class CyclesController < ApplicationController
       end
     end
   end
-
+  # GET /cycles/1/new_subcomponent
   def new_subcomponent
   end
-
-  def add_subcomponents
+  # POST /cycles/1/new_subcomponent
+  def add_subcomponents 
     @cycle = Cycle.find(params[:id])
     subcomponent = {
         name: params[:cycle][:component_name],
@@ -69,12 +69,12 @@ class CyclesController < ApplicationController
       end
     end
   end
-
+  # add to counter
   def categories_sum(climate_change, water_use)
     @cycle = Cycle.find(params[:id])
     @cycle.categories_sum(climate_change, water_use)
   end
-
+  # DELETE components
   def delete_component
     @cycle = Cycle.find(params[:id])
     @cycle.components.delete_at(params[:format].to_i)
@@ -85,7 +85,7 @@ class CyclesController < ApplicationController
       render :edit
     end
   end
-
+  # DELETE subcomponents
   def delete_subcomponent
     @cycle = Cycle.find(params[:id])
     @cycle.components[params[:index].to_i]["components"].delete_at(params[:ind].to_i)
@@ -95,13 +95,6 @@ class CyclesController < ApplicationController
     else
       render :edit
     end
-  end
-
-  def update_component
-    pp params
-  end
-
-  def update_subcomponent
   end
 
   # POST /cycles or /cycles.json
