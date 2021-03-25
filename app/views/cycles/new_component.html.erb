@@ -1,6 +1,5 @@
 <div class="h-screen w-2/3 mx-auto flex pt-20 justify-center">
   <div class="w-full h-auto flex justify-between">
-    
     <div class="w-6/12">
       <div class="fixed">
         <%= form_with(cycle: @cycle, local: true) do |form| %>
@@ -41,8 +40,8 @@
       </div>
     </div>
 
-    <div class="w-6/12">
-      <div class="border border-indigo-900 rounded py-2 p-3">
+    <div class="w-9/12">
+      <div class="border border-indigo-900 rounded p-3">
         <p class="text-xl mb-2">Carbon footprint</p>
         <p class="text-lg mb-1"><i class="fas fa-sun"></i> Climate change: <%= @cycle.climate_change %></p>
         <p class="text-lg mb-1"><i class="fas fa-water"></i> Water use: <%= @cycle.water_use %></p>
@@ -51,14 +50,14 @@
       <div class="flex justify-between flex-wrap">
         <% @cycle.components.each do |comp| %>
           <% if comp.keys[1] == 'impacts' %>
-            <div class="m-3 w-60 h-52 border border-indigo-900 rounded py-2 p-3 flex justify-center flex-col" >
+            <div class="m-3 w-60 h-auto border border-indigo-900 rounded py-2 p-3 flex justify-center flex-col" >
               <p class="ml-3 font-sans text-lg font-semibold">Name: <%= comp["name"] %></p>
               <p class="ml-3 font-sans text-lg font-semibold">Impacts: </p>
               <p class="ml-5 font-sans text-lg font-normal">Climate change: <%= comp["impacts"]["climate_change"] %></p>
               <p class="ml-5 font-sans text-lg font-normal">Water use: <%= comp["impacts"]["water_use"] %></p>
             </div>
           <% elsif comp.keys[1] == 'components' %>
-            <div class="m-3 w-60 h-52 border border-indigo-900 rounded py-2 p-3 flex justify-center flex-col">
+            <div class="m-3 w-60 h-auto border border-indigo-900 rounded py-2 p-3 flex justify-center flex-col">
               
               <p class="ml-3 font-sans text-lg font-semibold">Name: <%= comp["name"] %></p>
               <% comp["components"].each do |sub| %>

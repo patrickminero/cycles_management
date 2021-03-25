@@ -59,7 +59,7 @@ class CyclesController < ApplicationController
         ]
       }
     
-    @cycle.components[@cycle.components.length] = subcomponent
+    @cycle.components << subcomponent
     respond_to do |format|
       if @cycle.save!
         categories_sum(params[:cycle][:climate_change].to_i, params[:cycle][:water_use].to_i)
@@ -95,6 +95,13 @@ class CyclesController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def update_component
+    pp params
+  end
+
+  def update_subcomponent
   end
 
   # POST /cycles or /cycles.json

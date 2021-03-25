@@ -6,7 +6,7 @@
       <%= link_to "Start", new_cycle_path, class: 'leading-none h-full rounded bg-indigo-900 hover:bg-blue-700 py-1.5 px-4 text-white text-base visited:text-white' %>
     </div>
   <% else %>
-    <div class="w-6/12 h-auto flex justify-center">
+    <div class="w-6/12 h-auto flex justify-center flex-col">
       <% @cycles.each do |cycle| %>
           <li class="flex justify-between mb-1 w-full h-12 leading-none p-2 border-2 rounded border-gray-400">
             <%= link_to cycle.name, cycle_path(cycle), class: 'text-indigo text-xl font-sans hover:bg-transparent hover:text-blue-700 visited:text-white' %>

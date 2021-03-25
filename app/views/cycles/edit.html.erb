@@ -5,7 +5,6 @@
       <% if @cycle.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(@cycle.errors.count, "error") %> prohibited this cycle from being saved:</h2>
-
           <ul>
             <% @cycle.errors.full_messages.each do |message| %>
               <li><%= message %></li>
@@ -15,7 +14,6 @@
       <% end %>
       <%= form.label :name, "Name", class: 'text-lg mb-4' %>
       <%= form.text_field :name, class: "p-16 bg-white focus:outline-none focus:shadow-outline border border-gray-500 rounded-md py-2 px-2 block appearance-none leading-normal w-full", autofocus: true, value: @cycle.name %>
-
       <h1 class="text-3xl mb-4">Components</h1>
       <% @cycle.components.each_with_index do |comp, index| %>
         <% if comp.keys[1] == 'impacts' %>
@@ -36,7 +34,7 @@
             </div>
           </div>
           <div class="text-right my-6">
-            <%= link_to 'Update component', delete_component_path(@cycle, index, comp), method: 'patch', class: 'rounded border-2 border-red-800 bg-white-800 hover:bg-red-500 py-2 px-4 text-red-800' %>
+            <%= link_to 'Update component', update_component_path(@cycle, index, comp), method: 'patch', class: 'rounded border-2 border-red-800 bg-white-800 hover:bg-red-500 py-2 px-4 text-red-800' %>
             <%= link_to 'Delete component', delete_component_path(@cycle, index, comp), method: 'delete', class: 'rounded bg-red-800 hover:bg-red-500 py-2 px-4 text-white' %>
           </div>
         </div>
@@ -50,13 +48,8 @@
   
             <div class="ml-5">
               <% comp["components"].each_with_index do |sub, ind| %>
-                
                 <%= form.label 'cycle[impacts][component_name]', "Subcomponent name", class: 'text-lg mb-4' %>
-                <div class="flex justify-between">
-                  <%= form.text_field 'cycle[impacts][component_name]', class: "p-16 bg-white focus:outline-none focus:shadow-outline border border-gray-500 rounded-md py-2 px-2 block appearance-none leading-normal w-full", autofocus: true, value: sub["name"] %>
-                  
-                </div>
-
+                <%= form.text_field 'cycle[impacts][component_name]', class: "p-16 bg-white focus:outline-none focus:shadow-outline border border-gray-500 rounded-md py-2 px-2 block appearance-none leading-normal w-full", autofocus: true, value: sub["name"] %>
                 <%= form.label 'cycle[:components]', "Impacts", class: 'text-lg mb-1' %>
                 <div class="ml-7 border-2 border-indigo-900 rounded py-2 px-4">
                   <%= form.label 'cycle[impacts][climate_change]', "Climate change", class: 'text-lg mb-1' %>
@@ -64,8 +57,8 @@
                   <%= form.label 'cycle[impacts][water_use]', "Water use", class: 'text-lg mb-1' %>
                   <%= form.number_field 'cycle[impacts][water_use]', class: "p-16 bg-white focus:outline-none focus:shadow-outline border border-gray-500 rounded-md py-2 px-2 block appearance-none leading-normal w-full mb-2", autofocus: true, value: sub["impacts"]["water_use"] %>
                   <div class="my-6">
-                    <%= link_to 'Delete subcomponent', delete_subcomponent_path({subindex: ind, index: index, component: sub["name"]}), method: 'delete', class: 'rounded bg-white border-2 border-red-800 hover:bg-red-500 py-2 px-4 text-red-800' %>
-                    <%= link_to 'Delete subcomponent', delete_subcomponent_path({subindex: ind, index: index, component: sub["name"]}), method: 'delete', class: 'rounded bg-red-800 hover:bg-red-500 py-2 px-4 text-white' %>
+                    <%= link_to 'Update subcomponent', delete_subcomponent_path({subindex: ind, index: index, component: sub}), method: 'delete', class: 'rounded bg-white border-2 border-red-800 hover:bg-red-500 py-2 px-4 text-red-800' %>
+                    <%= link_to 'Delete subcomponent', delete_subcomponent_path({subindex: ind, index: index, component: sub}), method: 'delete', class: 'rounded bg-red-800 hover:bg-red-500 py-2 px-4 text-white' %>
                   </div>
                 </div>
                 
@@ -80,7 +73,8 @@
       <% end %>
 
       <div class="actions mb-5">
-        <%= link_to 'Add Components', new_component_path(@cycle), class: 'rounded bg-indigo-900 hover:bg-blue-700 py-4 px-4 text-white' %>
+        <%= link_to 'Add Components', new_component_path(@cycle), class: 'rounded bg-indigo-900 hover:bg-blue-700 py-4 px-4 text-white visited:text-white' %>
+        <%= link_to "Go to #{@cycle.name} page", cycle_path(@cycle), class: "rounded bg-indigo-900 hover:bg-blue-700 py-4 px-4 text-white visited:text-white" %>
       </div>
     <% end %>
   </div>
